@@ -4,9 +4,11 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const base = import.meta.env.BASE_URL;
-const blogHref = `${base}blog/`;
-const aboutHref = `${base}about/`;
+const normalizedBase = import.meta.env.BASE_URL === '/'
+	? ''
+	: import.meta.env.BASE_URL.replace(/\/$/, '');
+const blogHref = normalizedBase ? `${normalizedBase}/blog/` : '/blog/';
+const aboutHref = normalizedBase ? `${normalizedBase}/about/` : '/about/';
 ---
 
 <!doctype html>

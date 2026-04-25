@@ -2,16 +2,19 @@
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 
-const base = import.meta.env.BASE_URL;
-const blogHref = `${base}blog/`;
-const aboutHref = `${base}about/`;
+const normalizedBase = import.meta.env.BASE_URL === '/'
+	? ''
+	: import.meta.env.BASE_URL.replace(/\/$/, '');
+const homeHref = normalizedBase ? `${normalizedBase}/` : '/';
+const blogHref = normalizedBase ? `${normalizedBase}/blog/` : '/blog/';
+const aboutHref = normalizedBase ? `${normalizedBase}/about/` : '/about/';
 ---
 
 <header>
 	<nav>
-		<h2><a href={base}>{SITE_TITLE}</a></h2>
+		<h2><a href={homeHref}>{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href={base}>홈</HeaderLink>
+			<HeaderLink href={homeHref}>홈</HeaderLink>
 			<HeaderLink href={blogHref}>글</HeaderLink>
 			<HeaderLink href={aboutHref}>소개</HeaderLink>
 		</div>
